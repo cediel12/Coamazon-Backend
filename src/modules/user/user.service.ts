@@ -40,4 +40,14 @@ export class UserService {
             })
         })
     }
+    public updateUser(idUser: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("select * from teacher where id_teacher = ?", [idUser],(err, result) => {
+                console.log(result);
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
 }
