@@ -6,17 +6,6 @@ export class UserService {
     constructor(
         @Inject('DbConnection') private connection
     ) { }
-
-    /* public async getUsers() {
-        try {
-            const users = await this.connection.query('select * from teacher')
-            console.log(users.results)
-            return await users[0]
-        } catch (error) {
-            return await new BadRequestException(error.message)
-        }
-    } */
-
     public getUsers() {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from user", (err, result) => {
@@ -29,7 +18,7 @@ export class UserService {
     }
     public deleteuser(idUser: number) {
         return new Promise((resolve, reject) => {
-            this.connection.query("DELETE FROM user WHERE iduser=?", [idUser],(err, result) => {
+            this.connection.query("DELETE FROM user WHERE iduser=?", [idUser], (err, result) => {
                 console.log(result);
                 return !err
                     ? resolve(result)
@@ -40,7 +29,7 @@ export class UserService {
 
     public getUser(idUser: number) {
         return new Promise((resolve, reject) => {
-            this.connection.query("select * from user where iduser = ?", [idUser],(err, result) => {
+            this.connection.query("select * from user where iduser = ?", [idUser], (err, result) => {
                 console.log(result);
                 return !err
                     ? resolve(result)
@@ -50,7 +39,7 @@ export class UserService {
     }
     public updateUser(user: User) {
         return new Promise((resolve, reject) => {
-            this.connection.query("select * from teacher where user = ?", [idUser],(err, result) => {
+            this.connection.query("UPDATE user SET name=?,lastname=?,email=? WHERE iduser = ?", [user.name, user.lastname, user.email, user.idUser], (err, result) => {
                 console.log(result);
                 return !err
                     ? resolve(result)
@@ -58,14 +47,33 @@ export class UserService {
             })
         })
     }
-    public createUser(user: User) {
+    public createUserTeacher(user: User) {
         return new Promise((resolve, reject) => {
-            this.connection.query("INSERT INTO user (iduser,username, password, name, lastname, rol_idrol) VALUES (1,?, ?, ?, ?, ?)",
-             [user.username ,user.password,user.name, user.lastname,user.idRol],(err, result) => {
-                return !err
-                    ? resolve({message: 'Usuario creado Correctamente'})
-                    : reject(new BadRequestException(err.stack))
-            })
+            this.connection.query("call Coamazon.createteacher(?, ?, ?, ?, ?)",
+                [user.username, user.password, user.name, user.lastname, user.email], (err, result) => {
+                    return !err
+                        ? resolve({ message: 'Teacher creado Correctamente' })
+                        : reject(new BadRequestException(err.stack))
+                })
+        })
+    }
+    public createUserStudens(user: User) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("call Coamazon.createstudens(?, ?, ?, ?, ?,?)",
+                [user.username, user.password, user.name, user.lastname, user.email, user.user_iduser], (err, result) => {
+                    return !err
+                        ? resolve({ message: 'Studens creado Correctamente' })
+                        : reject(new BadRequestException(err.stack))
+                })
         })
     }
 }
+/* public async getUsers() {
+        try {
+            const users = await this.connection.query('select * from teacher')
+            console.log(users.results)
+            return await users[0]
+        } catch (error) {
+            return await new BadRequestException(error.message)
+        }
+    } */

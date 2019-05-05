@@ -5,10 +5,22 @@ import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { DepartmentModule } from './modules/department/department.module';
 import { CourseModule } from './modules/course/course.module';
-import { ObjectModule } from './modules/object/object.module';
+import { QuestionnaireModule } from './modules/questionnaire/questionnaire.module';
+import { ThemeModule } from './modules/theme/theme.module';
+import { QuestionsModule } from './modules/questions/questions.module';
+import { OptionModule } from './modules/option/option.module';
+import { SubthemeModule } from './modules/subtheme/subtheme.module';
 
 @Module({
-  imports: [UserModule,CommonModule, DepartmentModule, CourseModule, ObjectModule],
+  imports: [
+    UserModule,
+    CommonModule, 
+    DepartmentModule, 
+    CourseModule, 
+    QuestionnaireModule,  
+    ThemeModule, 
+    QuestionsModule, OptionModule, SubthemeModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -7,5 +7,5 @@ export interface User {
     lastname: string;
     email?: string;
     idRol?: number;
-
+    user_iduser?:number;
 }

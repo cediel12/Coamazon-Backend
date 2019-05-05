@@ -28,47 +28,63 @@ export class UserController {
         res.status(HttpStatus.OK).json(user);
     }
 
-    @Post('createUser')
-    public async createUser(
+    @Post('createUserteacher')
+    public async createUserteacher(
         @Request() req,
         @Response() res,
         @Body('username') userName,
         @Body('password') password,
         @Body('name') name,
         @Body('lasname') lastname,
-        @Body('idrol') idrol
+        @Body('email') email
 
     ) {
         let user: User = {
-            idRol:idrol,
+            email:email,
             username:userName,
             password:password,
             name:name,
             lastname:lastname
         }
         console.log(user)
-        const response = await this.UserService.createUser(user);
+        const response = await this.UserService.createUserTeacher(user);
         res.status(HttpStatus.OK).json(response);
     }
-    @Put('updateUser')
-    public async updateUser(
+    @Post('createUserstudens')
+    public async createUserStudens(
         @Request() req,
         @Response() res,
         @Body('username') userName,
         @Body('password') password,
         @Body('name') name,
         @Body('lasname') lastname,
-        @Body('idrol') idrol,
-        @Body('idrol') iduser
-
-
+        @Body('email') email,
+        @Body('user_iduser') user_iduser
     ) {
         let user: User = {
-            idRol:idrol,
+            email:email,
             username:userName,
             password:password,
             name:name,
-            lastname:lastname
+            lastname:lastname,
+            user_iduser:user_iduser
+        }
+        console.log(user)
+        const response = await this.UserService.createUserStudens(user);
+        res.status(HttpStatus.OK).json(response);
+    }
+    @Put('updateUser')
+    public async updateUser(
+        @Request() req,
+        @Response() res,
+        @Body('name') name,
+        @Body('lasname') lastname,
+        @Body('email') email
+    ) {
+        let user: User = {
+            name:name,
+            lastname:lastname,
+            email:email
         }
         console.log(user)
         const response = await this.UserService.updateUser(user);
@@ -81,7 +97,7 @@ export class UserController {
         @Param('idUser') idUser
     ) {
         
-        const user = await this.UserService.getUser(idUser);
+        const user = await this.UserService.deleteuser(idUser);
         res.status(HttpStatus.OK).json(user);
     }
 }

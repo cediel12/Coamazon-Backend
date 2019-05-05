@@ -1,15 +1,24 @@
-import { Course } from './course.interface';
+import { SubTheme } from './subtheme.interface';
 import { Injectable, BadRequestException, Inject } from '@nestjs/common';
 
 @Injectable()
-export class CourseService {
+export class SubthemeService {
     constructor(
         @Inject('DbConnection') private connection
     ) { }
-
-    public getCourse() {
+    public getsubtheme() {
         return new Promise((resolve, reject) => {
-            this.connection.query("select * from course", (err, result) => {
+            this.connection.query("select * from subtheme", (err, result) => {
+                console.log(result);
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
+    public deleteSubtheme(idSubteme: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("DELETE FROM subtheme WHERE idsubtheme=?", [idSubteme], (err, result) => {
                 console.log(result);
                 return !err
                     ? resolve(result)
@@ -18,9 +27,9 @@ export class CourseService {
         })
     }
 
-    public getICourse(idCurse: number) {
+    public getSubTheme(idSubteme: number) {
         return new Promise((resolve, reject) => {
-            this.connection.query("select * from course where idcourse = ?", [idCurse],(err, result) => {
+            this.connection.query("select * from subtheme where idsubtheme = ?", [idSubteme], (err, result) => {
                 console.log(result);
                 return !err
                     ? resolve(result)
@@ -28,9 +37,10 @@ export class CourseService {
             })
         })
     }
-    public updateCourse(course: Course) {
+    public updateSubTheme(subtheme: SubTheme) {
         return new Promise((resolve, reject) => {
-            this.connection.query("select * from course where idcourse= ?", [course],(err, result) => {
+            this.connection.query("UPDATE subtheme SET name=?,image=?,description=? WHERE idsubtheme = ?", 
+            [subtheme.name,subtheme.image,subtheme.description,subtheme.idsubtheme], (err, result) => {
                 console.log(result);
                 return !err
                     ? resolve(result)
@@ -38,24 +48,14 @@ export class CourseService {
             })
         })
     }
-    public deleteCourse(idCurse: number) {
+    public createSubTheme(subtheme: SubTheme) {
         return new Promise((resolve, reject) => {
-            this.connection.query("DELETE FROM course WHERE idcourse=?", [idCurse],(err, result) => {
-                console.log(result);
-                return !err
-                    ? resolve(result)
-                    : reject(new BadRequestException(err.stack))
-            })
-        })
-    }
-    public createCourse(course: Course) {
-        return new Promise((resolve, reject) => {
-            this.connection.query("INSERT INTO user (iduser,username, password, name, lastname, rol_idrol) VALUES (1,?, ?, ?, ?, ?)",
-             [course],(err, result) => {
-                return !err
-                    ? resolve({message: 'Course creado Correctamente'})
-                    : reject(new BadRequestException(err.stack))
-            })
+            this.connection.query("call Coamazon.createsubtheme(?, ?,?,?)",
+                [subtheme.name,subtheme.image,subtheme.description,subtheme.theme_idtheme], (err, result) => {
+                    return !err
+                        ? resolve({ message: 'Theme creado Correctamente' })
+                        : reject(new BadRequestException(err.stack))
+                })
         })
     }
 }
