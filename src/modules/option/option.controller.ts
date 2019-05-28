@@ -1,5 +1,5 @@
 import { OptionService } from './option.service';
-import { Controller, HttpStatus, Request, Response, Body, Post, Get, Param, Delete, Put } from '@nestjs/common';
+import { Controller, HttpStatus, Request, Response, Body, Post, Get, Param, Delete, Put, HttpCode, Req } from '@nestjs/common';
 import { Option } from './option.interface';
 
 @Controller('option')
@@ -70,6 +70,15 @@ export class OptionController {
         console.log(Option)
         const response = await this.OptionService.updateOption(Option);
         res.status(HttpStatus.OK).json(response);
+    }
+    @Post('ValidateOption')
+   // @UseGuards(AuthGuard('jwt'))
+    @HttpCode(HttpStatus.OK)
+    public async signIn(
+        @Req() req,
+        @Body('idoption') idoption
+    ) {
+        return await this.OptionService.validateOption(idoption)
     }
 
 }

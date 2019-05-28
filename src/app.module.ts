@@ -10,6 +10,8 @@ import { ThemeModule } from './modules/theme/theme.module';
 import { QuestionsModule } from './modules/questions/questions.module';
 import { OptionModule } from './modules/option/option.module';
 import { SubthemeModule } from './modules/subtheme/subtheme.module';
+import { AnswerModule } from './modules/answer/answer.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -19,7 +21,11 @@ import { SubthemeModule } from './modules/subtheme/subtheme.module';
     CourseModule, 
     QuestionnaireModule,  
     ThemeModule, 
-    QuestionsModule, OptionModule, SubthemeModule
+    QuestionsModule,
+    OptionModule,
+    SubthemeModule,
+    AnswerModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

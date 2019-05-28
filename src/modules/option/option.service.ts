@@ -1,5 +1,7 @@
+import { UnauthorizedException } from '@nestjs/common';
 import { Injectable, BadRequestException, Inject } from '@nestjs/common';
 import { Option } from './option.interface';
+import { parse } from 'path';
 
 @Injectable()
 export class OptionService {
@@ -57,5 +59,25 @@ export class OptionService {
                         : reject(new BadRequestException(err.stack))
                 })
         })
+    }
+    public async validateoption(option: number){
+        return new Promise((resolve, reject) => {
+            this.connection.query
+            ("SELECT * FROM Coamazon.questions inner join Coamazon.option on idquestions=questions_idquestions where idoption=?",
+             [option], (err, result) => {
+                return !err
+                    ? resolve(JSON.parse(JSON.stringify(result)))
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
+    async validateOption(option): Promise<any> {
+        try {
+            const validateoption = await this.validateoption(option);
+            const veracity:boolean =  validateoption[0].veracity;
+            return veracity? validateoption : new UnauthorizedException('Invalid Option');          
+        } catch (err) {
+            return err;
+        }
     }
 }

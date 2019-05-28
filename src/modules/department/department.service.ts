@@ -9,7 +9,7 @@ export class DepartmentService {
 
     public getDepartament() {
         return new Promise((resolve, reject) => {
-            this.connection.query("select * from departament", (err, result) => {
+            this.connection.query("select * from Department", (err, result) => {
                 console.log(result);
                 return !err
                     ? resolve(result)

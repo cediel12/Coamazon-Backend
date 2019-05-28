@@ -4,3 +4,6 @@ export interface Option {
     option:string;
     veracity:boolean;
 }
+export interface ValidateOption {
+    idoption?:number;
+}
