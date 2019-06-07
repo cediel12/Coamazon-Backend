@@ -9,7 +9,6 @@ export class QuestionnaireService {
     public getQuestions() {
         return new Promise((resolve, reject) => {
             this.connection.query("SELECT * FROM questionnaire", (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -19,7 +18,6 @@ export class QuestionnaireService {
     public getQuestion(idQuestion: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from questionnaire where idquestionnaire = ?", [idQuestion], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -29,7 +27,15 @@ export class QuestionnaireService {
     public deleteQuestion(idQuestion: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM questionnaire WHERE idquestionnaire=?", [idQuestion], (err, result) => {
-                console.log(result);
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
+    public LoadqQestionnaire(idQuestion: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT * FROM Coamazon.`option` inner join Coamazon.question on question.idquestion=`option`.question_idquestion inner join Coamazon.questionaire on questionaire.idquestiona=question.questionaire_idquestiona where questionaire.idquestiona=?", [idQuestion], (err, result) => {
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -40,7 +46,6 @@ export class QuestionnaireService {
         return new Promise((resolve, reject) => {
             this.connection.query("UPDATE questionnaire SET name=?,scores_max=?,description=? WHERE idquestionnaire = ?",
                 [Question.name,Question.scores_max,Question.description,Question.idquestionnaire], (err, result) => {
-                    console.log(result);
                     return !err
                         ? resolve(result)
                         : reject(new BadRequestException(err.stack))

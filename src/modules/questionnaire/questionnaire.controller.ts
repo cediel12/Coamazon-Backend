@@ -27,6 +27,17 @@ export class QuestionnaireController {
         res.status(HttpStatus.OK).json(user);
     }
 
+    @Get('LoadQuestionnaire/:idquestions')
+    public async LoadQuestionnaire(
+        @Request() req,
+        @Response() res,
+        @Param('idquestions') idquestions
+    ) {
+        
+        const user = await this.questionnaireService.LoadqQestionnaire(idquestions);
+        res.status(HttpStatus.OK).json(user);
+    }
+
     @Post('createQuestion')
     public async createQuestion(
         @Request() req,
