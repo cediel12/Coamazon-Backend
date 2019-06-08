@@ -76,7 +76,7 @@ export class UserService {
     }
     public createUserStudens(user: User) {
         return new Promise((resolve, reject) => {
-            this.connection.query("call Coamazon.createstudens(?, ?, ?, ?, ?)",
+            this.connection.query("call Coamazon.crearusuario(?, ?, ?, ?, ?)",
                 [user.username, user.password, user.name, user.lastname, user.email], (err, result) => {
                     return !err
                         ? resolve({ message: 'Studens creado Correctamente' })
