@@ -38,7 +38,6 @@ export class QuestionsController {
             description:description,
             questionnaire_idquestionnaire:questionnaire_idquestionnaire
         }
-        console.log(Question)
         const response = await this.questServise.createQuest(Question);
         res.status(HttpStatus.OK).json(response);
     }
@@ -65,7 +64,6 @@ export class QuestionsController {
             description:description,
             questionnaire_idquestionnaire:questionnaire_idquestionnaire
         }
-        console.log(Question)
         const response = await this.questServise.updateQuest(Question);
         res.status(HttpStatus.OK).json(response);
     }

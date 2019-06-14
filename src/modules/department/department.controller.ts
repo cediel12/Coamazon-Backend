@@ -39,7 +39,6 @@ export class DepartmentController {
             capital:capital,
             flag:flag
         }
-        console.log(departament)
         const response = await this.departamentService.crearDepartment(departament);
         res.status(HttpStatus.OK).json(response);
     }
@@ -56,7 +55,6 @@ export class DepartmentController {
             capital:capital,
             iddepartamento: iddepartamento
         }
-        console.log(Departament)
         const response = await this.departamentService.updateDepartament(Departament);
         res.status(HttpStatus.OK).json(response);
     }

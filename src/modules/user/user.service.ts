@@ -12,7 +12,6 @@ export class UserService {
     public getUsers() {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from user", (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -22,7 +21,6 @@ export class UserService {
     public async findUsername(username: string) {
         return new Promise((resolve, reject) => {
             this.connection.query("SELECT * FROM Coamazon.user WHERE username=?", [username], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -32,7 +30,6 @@ export class UserService {
     public deleteuser(idUser: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM user WHERE iduser=?", [idUser], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -43,7 +40,6 @@ export class UserService {
     public getUser(idUser: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from user where iduser = ?", [idUser], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -53,7 +49,6 @@ export class UserService {
     public updateUser(user: User) {
         return new Promise((resolve, reject) => {
             this.connection.query("UPDATE user SET name=?,lastname=?,email=? WHERE iduser = ?", [user.name, user.lastname, user.email, user.idUser], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -88,7 +83,6 @@ export class UserService {
 /* public async getUsers() {
         try {
             const users = await this.connection.query('select * from teacher')
-            console.log(users.results)
             return await users[0]
         } catch (error) {
             return await new BadRequestException(error.message)

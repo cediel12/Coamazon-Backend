@@ -53,7 +53,6 @@ export class QuestionnaireController {
             description:description,
             theme_idtheme:theme_idtheme
         }
-        console.log(Question)
         const response = await this.questionnaireService.createQuestion(Question);
         res.status(HttpStatus.OK).json(response);
     }
@@ -82,7 +81,6 @@ export class QuestionnaireController {
             description:description,
             theme_idtheme:theme_idtheme
         }
-        console.log(Question)
         const response = await this.questionnaireService.updateQuestion(Question);
         res.status(HttpStatus.OK).json(response);
     }
@@ -101,7 +99,6 @@ export class QuestionnaireController {
             course:course,
             user:user
         }
-        console.log(QuestionUser)
         const response = await this.questionnaireService.createQuestionUser(QuestionUser);
         res.status(HttpStatus.OK).json(response);
     }

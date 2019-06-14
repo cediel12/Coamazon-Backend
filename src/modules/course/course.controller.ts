@@ -44,7 +44,6 @@ export class CourseController {
             grade: grade,
             id_use_teacher: id_use_teacher
         }
-        console.log(course)
         const response = await this.courseService.updateCourse(course);
         res.status(HttpStatus.OK).json(response);
     }
@@ -75,7 +74,6 @@ export class CourseController {
             grade: grade,
             id_use_teacher: id_use_teacher
         }
-        console.log(course)
         const response = await this.courseService.createCourse(course);
         res.status(HttpStatus.OK).json(response);
     }

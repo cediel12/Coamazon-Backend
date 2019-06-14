@@ -10,7 +10,6 @@ export class CourseService {
     public getCourse() {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from course", (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -21,7 +20,6 @@ export class CourseService {
     public getICourse(idCurse: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from course where idcourse = ?", [idCurse],(err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -31,7 +29,6 @@ export class CourseService {
     public updateCourse(course: Course) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from course where idcourse= ?", [course],(err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -41,7 +38,6 @@ export class CourseService {
     public deleteCourse(idCurse: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM course WHERE idcourse=?", [idCurse],(err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))

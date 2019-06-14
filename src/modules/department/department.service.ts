@@ -10,7 +10,6 @@ export class DepartmentService {
     public getDepartament() {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from Department", (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -21,7 +20,6 @@ export class DepartmentService {
     public getIDepartament(idDepartment: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from departament where iddepartament = ?", [idDepartment],(err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -31,7 +29,6 @@ export class DepartmentService {
     public updateDepartament(departament: Department) {
         return new Promise((resolve, reject) => {
             this.connection.query("UPDATE Department SET capital=?,flag=? WHERE idDepartment = ?", [departament.capital,departament.flag,departament.iddepartamento],(err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -51,7 +48,6 @@ export class DepartmentService {
     public deleteDepartament(idDepartment: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM Department WHERE idDepartment=?", [idDepartment],(err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))

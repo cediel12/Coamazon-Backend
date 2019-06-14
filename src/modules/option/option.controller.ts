@@ -40,7 +40,6 @@ export class OptionController {
             veracity:veracity,
             questions_idquestions:questions_idquestions
         }
-        console.log(Option)
         const response = await this.OptionService.createOption(Option);
         res.status(HttpStatus.OK).json(response);
     }
@@ -67,7 +66,6 @@ export class OptionController {
             option:option,
             veracity:veracity
         }
-        console.log(Option)
         const response = await this.OptionService.updateOption(Option);
         res.status(HttpStatus.OK).json(response);
     }

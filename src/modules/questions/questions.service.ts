@@ -8,7 +8,6 @@ export class QuestionsService {
     public getQuest() {
         return new Promise((resolve, reject) => {
             this.connection.query("SELECT * FROM questions", (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -18,7 +17,6 @@ export class QuestionsService {
     public getQuests(idQuest: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from questions where idquestions = ?", [idQuest], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -28,7 +26,6 @@ export class QuestionsService {
     public deleteQuest(idQuest: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM questions WHERE idquestions=?", [idQuest], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -39,7 +36,6 @@ export class QuestionsService {
         return new Promise((resolve, reject) => {
             this.connection.query("UPDATE questions SET description=? WHERE idquestions = ?",
                 [Quest.description, Quest.idquestions], (err, result) => {
-                    console.log(result);
                     return !err
                         ? resolve(result)
                         : reject(new BadRequestException(err.stack))

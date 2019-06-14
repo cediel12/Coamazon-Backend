@@ -42,7 +42,6 @@ export class SubthemeController {
             image:image,
             name:name
         }
-        console.log(subTheme)
         const response = await this.subthemeService.createSubTheme(subTheme);
         res.status(HttpStatus.OK).json(response);
     }
@@ -71,7 +70,6 @@ export class SubthemeController {
             image:image,
             name:name
         }
-        console.log(subTheme)
         const response = await this.subthemeService.updateSubTheme(subTheme);
         res.status(HttpStatus.OK).json(response);
     }

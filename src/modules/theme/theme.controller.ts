@@ -27,6 +27,17 @@ export class ThemeController {
         res.status(HttpStatus.OK).json(user);
     }
 
+    @Get('LoadThemeDepartment/:iddepartment')
+    public async LoadThemeDepartment(
+        @Request() req,
+        @Response() res,
+        @Param('iddepartment') iddepartment
+    ) {
+        
+        const user = await this.themeService.LoadThemesDepartment(iddepartment);
+        res.status(HttpStatus.OK).json(user);
+    }
+
     @Post('createTheme')
     public async createTheme(
         @Request() req,
@@ -40,7 +51,6 @@ export class ThemeController {
             description:description,
             Department_idDepartment:Department_idDepartment
         }
-        console.log(Theme)
         const response = await this.themeService.createTheme(Theme);
         res.status(HttpStatus.OK).json(response);
     }
@@ -67,7 +77,6 @@ export class ThemeController {
             theme:theme,
             description:description
         }
-        console.log(Theme)
         const response = await this.themeService.updateTheme(Theme);
         res.status(HttpStatus.OK).json(response);
     }

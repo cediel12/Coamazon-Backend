@@ -11,7 +11,6 @@ export class OptionService {
     public getoption() {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from option", (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -21,7 +20,6 @@ export class OptionService {
     public deleteOption(idOption: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM option WHERE idtheme=?", [idOption], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -32,7 +30,6 @@ export class OptionService {
     public getOption(idOption: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from option where iduser = ?", [idOption], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -43,7 +40,6 @@ export class OptionService {
         return new Promise((resolve, reject) => {
             this.connection.query("UPDATE option SET option=?,veracity=? WHERE idoption = ?",
                 [option.option,option.veracity,option.idoption], (err, result) => {
-                    console.log(result);
                     return !err
                         ? resolve(result)
                         : reject(new BadRequestException(err.stack))

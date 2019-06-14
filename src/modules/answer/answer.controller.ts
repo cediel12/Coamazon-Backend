@@ -17,7 +17,6 @@ export class AnswerController {
             idquestion:idquestion,
             idoption:idoption
         }
-        console.log(anwer)
         const response = await this.answerService.consultAnswer(anwer);
         res.status(HttpStatus.OK).json(response);
     }

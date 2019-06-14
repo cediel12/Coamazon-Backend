@@ -9,7 +9,6 @@ export class SubthemeService {
     public getsubtheme() {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from subtheme", (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -19,7 +18,6 @@ export class SubthemeService {
     public deleteSubtheme(idSubteme: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM subtheme WHERE idsubtheme=?", [idSubteme], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -30,7 +28,6 @@ export class SubthemeService {
     public getSubTheme(idSubteme: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from subtheme where idsubtheme = ?", [idSubteme], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -41,7 +38,6 @@ export class SubthemeService {
         return new Promise((resolve, reject) => {
             this.connection.query("UPDATE subtheme SET name=?,image=?,description=? WHERE idsubtheme = ?", 
             [subtheme.name,subtheme.image,subtheme.description,subtheme.idsubtheme], (err, result) => {
-                console.log(result);
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))

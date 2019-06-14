@@ -46,7 +46,6 @@ export class UserController {
             name:name,
             lastname:lastname
         }
-        console.log(user)
         const response = await this.UserService.createUserTeacher(user);
         res.status(HttpStatus.OK).json(response);
     }
@@ -68,7 +67,6 @@ export class UserController {
             name:name,
             lastname:lastname
         }
-        console.log(user)
         const response = await this.UserService.createUserStudens(user);
         res.status(HttpStatus.OK).json(response);
     }
@@ -85,7 +83,6 @@ export class UserController {
             lastname:lastname,
             email:email
         }
-        console.log(user)
         const response = await this.UserService.updateUser(user);
         res.status(HttpStatus.OK).json(response);
     }
