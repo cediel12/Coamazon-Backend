@@ -14,8 +14,11 @@ export class AuthService {
     ) { }
     public async createToken(user) {
         const accessTocken = this.jwtService.sign({
-            username: user['username'],
-            password: user['password']
+            iduser: user[0].iduser,
+            username: user[0].username,
+            name: user[0].name,
+            lastname: user[0].lastname,
+            role: user[0].role_idrole
         } as JwtPayload);
         return { expiresIn: 3600, accessTocken }
     }
@@ -51,7 +54,7 @@ export class AuthService {
                         username: user[0].username,
                         name: user[0].name,
                         lastname: user[0].lastname,
-                        role: user[0].rol_idrol,
+                        role: user[0].role_idrole,
                         accessTocken: null
                     }
                     this.createToken(user).then(res => data.accessTocken = res['accessTocken'])                    

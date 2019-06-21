@@ -33,15 +33,14 @@ export class CourseController {
         @Response() res,
         @Body('idcourse') idcourse,
         @Body('name_course') name_course,
-        @Body('date_course') date_course,
+        @Body('description') description,
         @Body('grade') grade,
         @Body('id_use_teacher') id_use_teacher,
     ) {
         let course: Course = {
             idcourse: idcourse,
             name_course: name_course,
-            date_course: date_course,
-            grade: grade,
+            description: description,
             id_use_teacher: id_use_teacher
         }
         const response = await this.courseService.updateCourse(course);
@@ -61,17 +60,13 @@ export class CourseController {
     public async crearCourse(
         @Request() req,
         @Response() res,
-        @Body('idcourse') idcourse,
         @Body('name_course') name_course,
-        @Body('date_course') date_course,
-        @Body('grade') grade,
+        @Body('description') description,
         @Body('id_use_teacher') id_use_teacher,
     ) {
         let course: Course = {
-            idcourse: idcourse,
             name_course: name_course,
-            date_course: date_course,
-            grade: grade,
+            description: description,
             id_use_teacher: id_use_teacher
         }
         const response = await this.courseService.createCourse(course);

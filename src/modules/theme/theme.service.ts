@@ -38,16 +38,16 @@ export class ThemeService {
         return new Promise((resolve, reject) => {
             this.connection.query(
                 "SELECT theme_idtheme,description FROM Coamazon.departament inner join Coamazon.theme_has_departament on theme_has_departament.departament_iddepartament=departament.iddepartament inner join Coamazon.theme on theme.idtheme=theme_has_departament.theme_idtheme where iddepartament = ?",
-                 [idTheme], (err, result) => {
-                return !err
-                    ? resolve(result)
-                    : reject(new BadRequestException(err.stack))
-            })
+                [idTheme], (err, result) => {
+                    return !err
+                        ? resolve(result)
+                        : reject(new BadRequestException(err.stack))
+                })
         })
     }
     public updateTheme(theme: Theme) {
         return new Promise((resolve, reject) => {
-            this.connection.query("UPDATE theme SET thema=?,description=? WHERE idtheme = ?", [theme.theme, theme.description,theme.idtheme], (err, result) => {
+            this.connection.query("UPDATE theme SET thema=?,description=? WHERE idtheme = ?", [theme.theme, theme.description, theme.idtheme], (err, result) => {
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -57,7 +57,7 @@ export class ThemeService {
     public createTheme(theme: Theme) {
         return new Promise((resolve, reject) => {
             this.connection.query("call Coamazon.createtheme(?, ?,?)",
-                [theme.theme,theme.description,theme.Department_idDepartment], (err, result) => {
+                [theme.theme, theme.description, theme.Department_idDepartment], (err, result) => {
                     return !err
                         ? resolve({ message: 'Theme creado Correctamente' })
                         : reject(new BadRequestException(err.stack))

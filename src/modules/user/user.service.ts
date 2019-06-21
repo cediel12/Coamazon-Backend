@@ -80,11 +80,3 @@ export class UserService {
         })
     }
 }
-/* public async getUsers() {
-        try {
-            const users = await this.connection.query('select * from teacher')
-            return await users[0]
-        } catch (error) {
-            return await new BadRequestException(error.message)
-        }
-    } */
