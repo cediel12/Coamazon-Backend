@@ -33,9 +33,19 @@ export class QuestionnaireService {
             })
         })
     }
-    public LoadqQestionnaire(idQuestion: number) {
+    public LoadqQestionnaire(idtheme: number) {
         return new Promise((resolve, reject) => {
-            this.connection.query("SELECT * FROM Coamazon.`option` inner join Coamazon.question on question.idquestion=`option`.question_idquestion inner join Coamazon.questionaire on questionaire.idquestiona=question.questionaire_idquestiona where questionaire.idquestiona=?", [idQuestion], (err, result) => {
+//            this.connection.query("SELECT idquestiona, idoption, `option`.`option`, veracirty, idquestion, question.description, question.points  FROM Coamazon.`option` inner join Coamazon.question on question.idquestion=`option`.question_idquestion inner join Coamazon.questionaire on questionaire.idquestiona=question.questionaire_idquestiona where questionaire.theme_idtheme=?", [idtheme], (err, result) => {
+            this.connection.query("SELECT idquestion, question.description,questionaire.pointstotal FROM questionaire INNER JOIN question on questionaire.idquestiona=questionaire_idquestiona where theme_idtheme=?", [idtheme], (err, result) => {
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
+    public LoadOption(idquestion: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT * FROM `option` WHERE `option`.question_idquestion=?", [idquestion], (err, result) => {
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))

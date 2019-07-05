@@ -5,7 +5,7 @@ import { Controller, Get, HttpStatus, Request, Response, Param, Body, Post, Put,
 @Controller('department')
 export class DepartmentController {
     constructor(private readonly departamentService: DepartmentService){}
-
+department
     @Get('getAll')
     public async getDepartament(
         @Request() req,
@@ -25,6 +25,16 @@ export class DepartmentController {
     ) {
         
         const user = await this.departamentService.getIDepartament(idDepartament);
+        res.status(HttpStatus.OK).json(user);
+    }
+    @Get('getdepartamentinfo/:idDepartament')
+    public async getdepartamentinfo(
+        @Request() req,
+        @Response() res,
+        @Param('idDepartament') idDepartament
+    ) {
+        
+        const user = await this.departamentService.getdepartamentinfo(idDepartament);
         res.status(HttpStatus.OK).json(user);
     }
     @Post('crearDepartment')

@@ -4,7 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { DepartmentModule } from './modules/department/department.module';
-import { CourseModule } from './modules/course/course.module';
 import { QuestionnaireModule } from './modules/questionnaire/questionnaire.module';
 import { ThemeModule } from './modules/theme/theme.module';
 import { QuestionsModule } from './modules/questions/questions.module';
@@ -18,7 +17,6 @@ import { AuthModule } from './modules/auth/auth.module';
     UserModule,
     CommonModule, 
     DepartmentModule, 
-    CourseModule, 
     QuestionnaireModule,  
     ThemeModule, 
     QuestionsModule,

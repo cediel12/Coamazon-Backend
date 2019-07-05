@@ -26,6 +26,15 @@ export class DepartmentService {
             })
         })
     }
+    public getdepartamentinfo(idDepartment: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT * FROM infodepart where infodepart.idinfo= ?", [idDepartment],(err, result) => {
+                return !err
+                    ? resolve(result[0])
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
     public updateDepartament(departament: Department) {
         return new Promise((resolve, reject) => {
             this.connection.query("UPDATE Department SET capital=?,flag=? WHERE idDepartment = ?", [departament.capital,departament.flag,departament.iddepartamento],(err, result) => {
