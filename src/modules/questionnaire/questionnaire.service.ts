@@ -35,12 +35,30 @@ export class QuestionnaireService {
     }
     public LoadqQestionnaire(idtheme: number) {
         return new Promise((resolve, reject) => {
-//            this.connection.query("SELECT idquestiona, idoption, `option`.`option`, veracirty, idquestion, question.description, question.points  FROM Coamazon.`option` inner join Coamazon.question on question.idquestion=`option`.question_idquestion inner join Coamazon.questionaire on questionaire.idquestiona=question.questionaire_idquestiona where questionaire.theme_idtheme=?", [idtheme], (err, result) => {
-            this.connection.query("SELECT idquestion, question.description,questionaire.pointstotal FROM questionaire INNER JOIN question on questionaire.idquestiona=questionaire_idquestiona where theme_idtheme=?", [idtheme], (err, result) => {
+            this.connection.query("SELECT idquestion, question.description, pointstotal FROM questionaire INNER JOIN question on questionaire.idquestiona=questionaire_idquestiona where theme_idtheme=? ORDER BY RAND()", [idtheme], (err, result) => {
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
             })
+        })
+    }
+    public ConsutQuestionaireCreate(idtheme: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT idquestiona FROM `questionaire` WHERE theme_idtheme=?;", [idtheme], (err, result) => {
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
+    public createQuestionaire(point: number, idtheme: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("call Coamazon.createquestionaire(?, ?)",
+                [point, idtheme], (err, result) => {
+                    return !err
+                        ? resolve({ message: 'Questionaire creado Correctamente' })
+                        : reject(new BadRequestException(err.stack))
+                })
         })
     }
     public LoadOption(idquestion: number) {
@@ -72,6 +90,7 @@ export class QuestionnaireService {
                 })
         })
     }
+    
     public createQuestionUser(QuestionUser: QuestionnaireUser) {
         return new Promise((resolve, reject) => {
             this.connection.query("INSERT INTO questionnaire_has_course_user VALUES (?, ?, ?, 0);",

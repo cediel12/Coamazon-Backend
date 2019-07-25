@@ -14,6 +14,7 @@ export class QuestionnaireController {
         const users = await this.questionnaireService.getQuestions();
         res.status(HttpStatus.OK).json(users);
     }
+    
 
 
     @Get('findQuestion/:idquestions')
@@ -38,7 +39,27 @@ export class QuestionnaireController {
         res.status(HttpStatus.OK).json(user);
     }
 
+    @Get('ConsutQuestionaireCreate/:idquestions')
+    public async ConsutQuestionaireCreate(
+        @Request() req,
+        @Response() res,
+        @Param('idquestions') idquestions
+    ) {
+        
+        const user = await this.questionnaireService.ConsutQuestionaireCreate(idquestions);
+        res.status(HttpStatus.OK).json(user[0]);
+    }
     @Post('createQuestion')
+    public async createQuestionaire(
+        @Request() req,
+        @Response() res,
+        @Body('scores_max') scores_max,
+        @Body('idtheme') idtheme,
+    ) {        
+        const response = await this.questionnaireService.createQuestionaire(scores_max, idtheme);
+        res.status(HttpStatus.OK).json(response);
+    }
+    @Post('createQuestionaire')
     public async createQuestion(
         @Request() req,
         @Response() res,

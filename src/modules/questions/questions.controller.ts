@@ -16,6 +16,17 @@ export class QuestionsController {
     }
 
 
+    @Get('FindQuestionUltimate')
+    public async FindQuestionUltimate(
+        @Request() req,
+        @Response() res
+    ) {
+        
+        const users = await this.questServise.FindQuestionUltimate();
+        res.status(HttpStatus.OK).json(users);
+    }
+
+
     @Get('findQuest/:idquestions')
     public async findQues(
         @Request() req,
@@ -27,18 +38,15 @@ export class QuestionsController {
         res.status(HttpStatus.OK).json(user);
     }
 
-    @Post('createQuest')
+    @Post('createQuestion')
     public async createQues(
         @Request() req,
         @Response() res,
         @Body('description') description,
-        @Body('questionnaire_idquestionnaire') questionnaire_idquestionnaire
+        @Body('idquestionaire') idquestionaire
     ) {
-        let Question: Questions = {
-            description:description,
-            questionnaire_idquestionnaire:questionnaire_idquestionnaire
-        }
-        const response = await this.questServise.createQuest(Question);
+        
+        const response = await this.questServise.createQuest(description,idquestionaire);
         res.status(HttpStatus.OK).json(response);
     }
     @Delete('deleteQuest/:idquestions')

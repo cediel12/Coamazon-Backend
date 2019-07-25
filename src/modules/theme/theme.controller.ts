@@ -42,14 +42,15 @@ export class ThemeController {
     public async createTheme(
         @Request() req,
         @Response() res,
-        @Body('theme') theme,
+        @Body('themename') themename,
         @Body('description') description,
-        @Body('Department_idDepartment') Department_idDepartment
+        @Body('link') link
     ) {
         let Theme: Theme = {
-            theme:theme,
+            themename:themename,
+            link: link,
             description:description,
-            Department_idDepartment:Department_idDepartment
+
         }
         const response = await this.themeService.createTheme(Theme);
         res.status(HttpStatus.OK).json(response);
@@ -68,13 +69,13 @@ export class ThemeController {
     public async updateTheme(
         @Request() req,
         @Response() res,
-        @Body('idtheme') idtheme,
-        @Body('theme') theme,
+        @Body('link') link,
+        @Body('themename') themename,
         @Body('description') description
     ) {
         let Theme: Theme = {
-            idtheme:idtheme,
-            theme:theme,
+            themename:themename,
+            link:link,
             description:description
         }
         const response = await this.themeService.updateTheme(Theme);

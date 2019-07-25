@@ -46,10 +46,10 @@ export class OptionService {
                 })
         })
     }
-    public createOption(option: Option) {
+    public createOption(option : string, veraciity : number, idquestion: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("call Coamazon.createoption(?, ?, ?)",
-                [option.questions_idquestions,option.option,option.veracity], (err, result) => {
+                [option,veraciity,idquestion], (err, result) => {
                     return !err
                         ? resolve({ message: 'Option creado Correctamente' })
                         : reject(new BadRequestException(err.stack))

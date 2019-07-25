@@ -11,7 +11,7 @@ export class UserService {
     ) { }
     public getUsers() {
         return new Promise((resolve, reject) => {
-            this.connection.query("select * from user", (err, result) => {
+            this.connection.query("select name,lastname, iduser from user where role_idrole=1", (err, result) => {
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -30,6 +30,16 @@ export class UserService {
     public deleteuser(idUser: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM user WHERE iduser=?", [idUser], (err, result) => {
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
+
+    public getpoints(idUser: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT points FROM points  WHERE iduser=?", [idUser], (err, result) => {
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -75,6 +85,15 @@ export class UserService {
                 [user.username, user.password, user.name, user.lastname, user.email], (err, result) => {
                     return !err
                         ? resolve({ message: 'Studens creado Correctamente' })
+                        : reject(new BadRequestException(err.stack))
+                })
+        })
+    }
+    public LoadPointsRanking() {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT `name`,lastname,points FROM `user` INNER JOIN points on points.iduser=`user`.iduser ORDER BY points DESC LIMIT 10; ", (err, result) => {
+                    return !err
+                        ? resolve(result)
                         : reject(new BadRequestException(err.stack))
                 })
         })

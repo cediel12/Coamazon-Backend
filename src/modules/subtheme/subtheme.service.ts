@@ -15,6 +15,15 @@ export class SubthemeService {
             })
         })
     }
+    public getSubtheme(idtheme:number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT * FROM subtheme where theme_idtheme=?",[idtheme], (err, result) => {
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
     public deleteSubtheme(idSubteme: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM subtheme WHERE idsubtheme=?", [idSubteme], (err, result) => {

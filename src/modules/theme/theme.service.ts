@@ -29,7 +29,7 @@ export class ThemeService {
         return new Promise((resolve, reject) => {
             this.connection.query("select * from theme where idtheme = ?", [idTheme], (err, result) => {
                 return !err
-                    ? resolve(result)
+                    ? resolve(result[0])
                     : reject(new BadRequestException(err.stack))
             })
         })
@@ -47,7 +47,7 @@ export class ThemeService {
     }
     public updateTheme(theme: Theme) {
         return new Promise((resolve, reject) => {
-            this.connection.query("UPDATE theme SET thema=?,description=? WHERE idtheme = ?", [theme.theme, theme.description, theme.idtheme], (err, result) => {
+            this.connection.query("UPDATE theme SET thema=?,description=? WHERE idtheme = ?", [theme.themename, theme.description, theme.idtheme], (err, result) => {
                 return !err
                     ? resolve(result)
                     : reject(new BadRequestException(err.stack))
@@ -57,7 +57,7 @@ export class ThemeService {
     public createTheme(theme: Theme) {
         return new Promise((resolve, reject) => {
             this.connection.query("call Coamazon.createtheme(?, ?,?)",
-                [theme.theme, theme.description, theme.Department_idDepartment], (err, result) => {
+                [theme.themename, theme.link, theme.description], (err, result) => {
                     return !err
                         ? resolve({ message: 'Theme creado Correctamente' })
                         : reject(new BadRequestException(err.stack))

@@ -1,4 +1,4 @@
-import { Answer } from './answer.interface';
+import { Answer, Question } from './answer.interface';
 import { AnswerService } from './answer.service';
 import { Controller, Get, HttpStatus, Request, Response, Param, Put, Body, Delete, Post } from '@nestjs/common';
 
@@ -39,6 +39,25 @@ export class AnswerController {
         const response = await this.answerService.ValidateOption(idoption);
         res.status(HttpStatus.OK).json(response);
     }
+    @Get('loadcualification/:iduser')
+    public async LoadCualification(
+        @Request() req,
+        @Response() res,
+        @Param('iduser') iduser
+    ) {
+        const response = await this.answerService.LoadCualification(iduser);
+        res.status(HttpStatus.OK).json(response);
+    }
+    @Post('ValidateREalitationQuestion')
+    public async ValidateREalitationQuestion(
+        @Request() req,
+        @Response() res,
+        @Body('iduser') iduser,
+        @Body('idquestion') idquestion
+    ) {
+        const response = await this.answerService.ValidateREalitationQuestion(iduser,idquestion);
+        res.status(HttpStatus.OK).json(response);
+    }
     @Get('loadcorectoptions/:idquestion')
     public async loadcorectoptions(
         @Request() req,
@@ -48,4 +67,45 @@ export class AnswerController {
         const response = await this.answerService.LoadOptionsCorects(idquestion);
         res.status(HttpStatus.OK).json(response);
     }
+
+    @Post('savequest')
+    public async SavePoints(
+        @Request() req,
+        @Response() res,
+        @Body('idquestion') idquestion,
+        @Body('iduser') iduser,
+        @Body('points') points,
+        @Body('qualification') qualification
+    ) {
+        let quest: Question = {
+            idquestion: idquestion,
+            iduser: iduser,
+            points: points,
+            qualification: qualification
+        }
+        console.log(quest);
+        
+        const response = await this.answerService.PointsQuestionaire(quest);
+        res.status(HttpStatus.OK).json(response);
+    }
+    @Put('updatesavequest')
+    public async UpdateSavePoints(
+        @Request() req,
+        @Response() res,
+        @Body('idquestion') idquestion,
+        @Body('iduser') iduser,
+        @Body('points') points,
+        @Body('qualification') qualification
+    ) {
+        let quest: Question = {
+            idquestion: idquestion,
+            iduser: iduser,
+            points: points,
+            qualification: qualification
+        }
+        console.log(quest);        
+        const response = await this.answerService.UpdatePointsQuestionaire(quest);
+        res.status(HttpStatus.OK).json(response);
+    }
+
 }

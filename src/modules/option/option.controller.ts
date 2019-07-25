@@ -33,14 +33,9 @@ export class OptionController {
         @Response() res,
         @Body('option') option,
         @Body('veracity') veracity,
-        @Body('questions_idquestions') questions_idquestions
-    ) {
-        let Option: Option = {
-            option:option,
-            veracity:veracity,
-            questions_idquestions:questions_idquestions
-        }
-        const response = await this.OptionService.createOption(Option);
+        @Body('idquestion') idquestion
+    ) {        
+        const response = await this.OptionService.createOption(option,veracity,idquestion);
         res.status(HttpStatus.OK).json(response);
     }
     @Delete('deleteOption/:idoption')

@@ -16,6 +16,16 @@ export class UserController {
         res.status(HttpStatus.OK).json(users);
     }
 
+    @Get('getRanking')
+    public async getRanking(
+        @Request() req,
+        @Response() res
+    ) {
+        
+        const users = await this.UserService.LoadPointsRanking();
+        res.status(HttpStatus.OK).json(users);
+    }
+
 
     @Get('findUser/:idUser')
     public async findUser(
@@ -26,6 +36,17 @@ export class UserController {
         
         const user = await this.UserService.getUser(idUser);
         res.status(HttpStatus.OK).json(user);
+    }
+
+    @Get('getpoints/:idUser')
+    public async getpoints(
+        @Request() req,
+        @Response() res,
+        @Param('idUser') idUser
+    ) {
+        
+        const user = await this.UserService.getpoints(idUser);
+        res.status(HttpStatus.OK).json(user[0]);
     }
 
     @Post('createUserteacher')

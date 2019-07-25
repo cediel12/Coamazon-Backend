@@ -27,6 +27,17 @@ export class SubthemeController {
         res.status(HttpStatus.OK).json(user);
     }
 
+    @Get('getSubteme/:idtheme')
+    public async getSubteme(
+        @Request() req,
+        @Response() res,
+        @Param('idtheme') idtheme
+    ) {
+        
+        const user = await this.subthemeService.getSubTheme(idtheme);
+        res.status(HttpStatus.OK).json(user);
+    }
+
     @Post('createSubTheme')
     public async createSubTheme(
         @Request() req,

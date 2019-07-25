@@ -18,8 +18,6 @@ export class AuthController {
         @Body('username') username,
         @Body('password') password
     ) {
-        console.log();
-        
         return await this.authService.signIn(username, password)
     }
 }

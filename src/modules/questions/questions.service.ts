@@ -23,6 +23,24 @@ export class QuestionsService {
             })
         })
     }
+    public FindQuestion(idQuest: number) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("select * from questions where idquestions = ?", [idQuest], (err, result) => {
+                return !err
+                    ? resolve(result)
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
+    public FindQuestionUltimate() {
+        return new Promise((resolve, reject) => {
+            this.connection.query("Select * from questionaire order by idquestiona desc limit 1", (err, result) => {
+                return !err
+                    ? resolve(result[0])
+                    : reject(new BadRequestException(err.stack))
+            })
+        })
+    }
     public deleteQuest(idQuest: number) {
         return new Promise((resolve, reject) => {
             this.connection.query("DELETE FROM questions WHERE idquestions=?", [idQuest], (err, result) => {
@@ -42,12 +60,12 @@ export class QuestionsService {
                 })
         })
     }
-    public createQuest(Quest: Questions) {
+    public createQuest(description : string, idquestionaire: number) {
         return new Promise((resolve, reject) => {
-            this.connection.query("call Coamazon.createquestions(?, ?)",
-                [Quest.description, Quest.questionnaire_idquestionnaire], (err, result) => {
+            this.connection.query("call Coamazon.createquestion(?, ?)",
+                [description, idquestionaire], (err, result) => {
                     return !err
-                        ? resolve({ message: 'Theme creado Correctamente' })
+                        ? resolve({ message: 'Question creado Correctamente' })
                         : reject(new BadRequestException(err.stack))
                 })
         })

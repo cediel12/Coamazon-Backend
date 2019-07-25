@@ -1,6 +1,6 @@
 export interface Theme {
     idtheme?:number;
-    theme:string;
+    themename:string;
     description:string;
-    Department_idDepartment?:number;
+    link: string;
 }
